@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Fabricio\Documents\Android Studio sample code\lattjar_lite_003\app\app.iml" filepath="C:\Users\Fabricio\Documents\Android Studio sample code\lattjar_lite_003\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/lattjar_lite_003.iml" filepath="$PROJECT_DIR$/lattjar_lite_003.iml" />
+      <module fileurl="file://C:\Users\Fabricio\Documents\Android Studio sample code\lattjar_lite_003\lattjar_lite_003.iml" filepath="C:\Users\Fabricio\Documents\Android Studio sample code\lattjar_lite_003\lattjar_lite_003.iml" />
       <module fileurl="file://$PROJECT_DIR$/openCVLibrary331/openCVLibrary331.iml" filepath="$PROJECT_DIR$/openCVLibrary331/openCVLibrary331.iml" />
+      <module fileurl="file://C:\Users\Fabricio\Documents\Android Studio sample code\lattjar_lite_003\openCVLibrary331\openCVLibrary331.iml" filepath="C:\Users\Fabricio\Documents\Android Studio sample code\lattjar_lite_003\openCVLibrary331\openCVLibrary331.iml" />
     </modules>
   </component>
 </project>
