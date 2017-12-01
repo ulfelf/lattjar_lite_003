@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             }
         }
         //lade till en kommentar
+        //lade till en till kommentar
     };
 
     @Override
