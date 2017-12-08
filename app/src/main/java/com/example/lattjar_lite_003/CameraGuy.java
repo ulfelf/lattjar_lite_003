@@ -1,5 +1,7 @@
 package com.example.lattjar_lite_003;
 
+import android.provider.ContactsContract;
+import android.support.v4.media.session.IMediaControllerCallback;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +16,8 @@ import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
 
 import java.util.List;
 
@@ -88,8 +92,12 @@ public class CameraGuy extends AppCompatActivity implements CameraBridgeViewBase
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
 
         Mat knas = inputFrame.rgba();
+        Mat hehe = inputFrame.rgba();
+        Imgproc proc = new Imgproc();
+        Imgproc.threshold(knas, hehe, 100, 255, Imgproc.THRESH_BINARY);
 
-        return knas;
+
+        return hehe;
                 //inputFrame.rgba();
     }
 
