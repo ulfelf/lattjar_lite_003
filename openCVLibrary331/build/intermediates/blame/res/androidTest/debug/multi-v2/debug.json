@@ -1,6 +1,10 @@
 {
     "logs": [
         {
+            "outputFile": "C:\\Users\\Fabricio\\Documents\\Android Studio sample code\\lattjar_lite_003\\openCVLibrary331\\build\\intermediates\\res\\merged\\androidTest\\debug\\values_values.arsc.flat",
+            "map": []
+        },
+        {
             "outputFile": "C:\\Users\\blandfars\\lattjar_lite_003\\openCVLibrary331\\build\\intermediates\\res\\merged\\androidTest\\debug\\values_values.arsc.flat",
             "map": []
         }

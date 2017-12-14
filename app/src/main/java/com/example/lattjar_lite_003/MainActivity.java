@@ -10,38 +10,32 @@ import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.dnn.Importer;
+import org.opencv.imgproc.Imgproc;
 
 public class MainActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2{
 
-//kommentar
+    private CameraBridgeViewBase mOpenCvCameraView;
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
             switch (status) {
-                case LoaderCallbackInterface.SUCCESS:
-                {
+                case LoaderCallbackInterface.SUCCESS: {
                     //Log.i(TAG, "OpenCV ld sucsly");
                     mOpenCvCameraView.enableView();
-                } break;
-                default:
-                {
+                }
+                break;
+                default: {
                     super.onManagerConnected(status);
-                } break;
+                }
+                break;
             }
         }
-        //lade till en kommentar
     };
 
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-        OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_6, this, mLoaderCallback);
-    }
-
-    private CameraBridgeViewBase mOpenCvCameraView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +56,13 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             mOpenCvCameraView.disableView();
     }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_6, this, mLoaderCallback);
+    }
+
     public void onDestroy() {
         super.onDestroy();
         if (mOpenCvCameraView != null)
@@ -75,6 +76,17 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     }
 
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
-        return inputFrame.rgba();
+        Mat rgba = inputFrame.rgba();
+        //Mat converted = new Mat();
+        //Mat frame = new Mat();
+        //Mat grayframe = new Mat();
+        Mat edges = new Mat();
+
+        //rgba.convertTo(converted, CvType.CV_8U);
+
+        //Imgproc.cvtColor(converted, BGRframe, Imgproc.COLOR_RGBA2BGR);
+        Imgproc.cvtColor(rgba, edges, Imgproc.COLOR_BGR2GRAY);
+        //Imgproc.Canny(rgba, rgba, 30, 60);
+        return edges;
     }
 }
