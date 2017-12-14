@@ -19,15 +19,27 @@ import org.opencv.dnn.Importer;
 import org.opencv.imgproc.Imgproc;
 
 public class MainActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2{
+    private static final String    TAG = "openCV::Activity";
 
-    private CameraBridgeViewBase mOpenCvCameraView;
+    private Mat                    mRgba;
+    private Mat                    mIntermediateMat;
+
+    private static CameraBridgeViewBase mOpenCvCameraView;
+
+    private void clearStatusbar() {
+        View decorView = getWindow().getDecorView();
+        // Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+    }
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
             switch (status) {
                 case LoaderCallbackInterface.SUCCESS: {
-                    //Log.i(TAG, "OpenCV ld sucsly");
+                    Log.i(TAG, "OpenCV loaded");
+                    //System.loadLibrary("openCvLibrary331");
                     mOpenCvCameraView.enableView();
                 }
                 break;
@@ -39,21 +51,19 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         }
     };
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        //Log.i(TAG, "called onCreate");
+        Log.i(TAG, "called onCreate");
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         setContentView(R.layout.activity_main);
+
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.HelloOpenCvView);
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
 
-        View decorView = getWindow().getDecorView();
-        // Hide the status bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
+        clearStatusbar();
     }
 
     @Override
@@ -69,12 +79,14 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     {
         super.onResume();
         if (!OpenCVLoader.initDebug()) {
-            //Log.d(TAG, "Internal OpenCV library not found. Using OpenCV Manager for initialization");
+            Log.d(TAG, "Internal OpenCV library not found. Using OpenCV Manager for initialization");
             OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_0_0, this, mLoaderCallback);
         } else {
-            //Log.d(TAG, "OpenCV library found inside package. Using it!");
+            Log.d(TAG, "OpenCV library found inside package. Using it!");
             mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
         }
+
+        clearStatusbar();
     }
 
     public void onDestroy() {
@@ -84,18 +96,22 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     }
 
     public void onCameraViewStarted(int width, int height) {
+        mRgba = new Mat(height, width, CvType.CV_8UC4);
+        mIntermediateMat = new Mat(height, width, CvType.CV_8UC4);
     }
 
     public void onCameraViewStopped() {
+        mRgba.release();
+        mIntermediateMat.release();
     }
 
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
 
-        Mat rgba = inputFrame.rgba();
-        Mat gray = new Mat();
+        mRgba = inputFrame.rgba();
 
-        Imgproc.cvtColor(rgba, gray, Imgproc.COLOR_BGR2GRAY);
+        Imgproc.Canny(inputFrame.gray(), mIntermediateMat, 80, 100);
+        Imgproc.cvtColor(mIntermediateMat, mRgba, Imgproc.COLOR_GRAY2RGBA, 4);
 
-        return gray;
+        return mRgba;
     }
 }
