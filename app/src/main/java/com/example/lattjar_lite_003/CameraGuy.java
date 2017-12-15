@@ -88,6 +88,8 @@ public class CameraGuy extends AppCompatActivity implements CameraBridgeViewBase
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
 
         Mat knas = inputFrame.rgba();
+        //kzn mzn pusha?
+
 
         return knas;
                 //inputFrame.rgba();
