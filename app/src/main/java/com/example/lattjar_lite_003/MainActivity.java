@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         if (mOpenCvCameraView != null)
             mOpenCvCameraView.disableView();
 
-        clearStatusbar();
+        //clearStatusbar();
     }
 
     @Override
