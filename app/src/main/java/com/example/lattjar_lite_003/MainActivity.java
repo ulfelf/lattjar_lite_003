@@ -1,5 +1,6 @@
 package com.example.lattjar_lite_003;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,11 +12,48 @@ import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.core.Size;
+import org.opencv.imgproc.Imgproc;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
+import static java.lang.Math.min;
+import static java.lang.Math.sqrt;
 
 public class MainActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2{
 
     private static final String    TAG = "openCV::Activity";
+
+    private Mat mInFrame;
+    private Mat mOutFrame;
+    private Mat mGray;
+    private Mat mBlurred;
+    private Size size = new Size(3,3);
+    private List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
+    private ArrayList arr = new ArrayList();
+
+    private CameraBridgeViewBase mOpenCvCameraView;
+
+
+    //finner cosinus for vinklar mellan vektorer, pt0->pt1 och pt0->pt2
+    static double angle(Point pt1, Point pt2, Point pt0)
+    {
+        double dx1 = pt1.x - pt0.x;
+        double dy1 = pt1.y - pt0.y;
+        double dx2 = pt2.x - pt0.x;
+        double dy2 = pt2.y - pt0.y;
+
+        return (dx1*dx2 + dy1*dy2)/sqrt((dx1*dx1 + dy1*dy1)*(dx2*dx2 + dy2*dy2) + 1e-10);
+    }
 
     private void clearStatusbar() {
         View decorView = getWindow().getDecorView();
@@ -42,8 +80,6 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         }
     };
 
-    private CameraBridgeViewBase mOpenCvCameraView;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "called onCreate");
@@ -63,8 +99,6 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         super.onPause();
         if (mOpenCvCameraView != null)
             mOpenCvCameraView.disableView();
-
-        //clearStatusbar();
     }
 
     @Override
@@ -88,12 +122,39 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     }
 
     public void onCameraViewStarted(int width, int height) {
+        mInFrame    = new Mat(height, width, CvType.CV_8UC4);
+        mOutFrame   = new Mat(height, width, CvType.CV_8UC4);
+        mGray       = new Mat(height, width, CvType.CV_8UC4);
+        mBlurred = new Mat(height, width, CvType.CV_8UC4);
     }
 
     public void onCameraViewStopped() {
     }
 
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
-        return inputFrame.rgba();
+
+        mInFrame = inputFrame.rgba();
+
+        // Convert to grayscale
+        Imgproc.cvtColor(mInFrame, mGray, Imgproc.COLOR_RGBA2GRAY);
+
+        // Use Canny instead of threshold to catch squares with gradient shading
+        Imgproc.blur(mGray, mBlurred, size);
+        Imgproc.Canny(mGray, mBlurred, 60, 80);
+
+        Imgproc.findContours(mBlurred, contours, new Mat() ,Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+        //Imgproc.drawContours(mBlurred, contours, 1,new Scalar(0,0,255));
+
+        /*for (int i = 0; i < contours.size(); i++) {
+            // Approximate contour with accuracy proportional
+            // to the contour perimeter
+            cv::approxPolyDP(cv::Mat(contours[i]), approx, cv::arcLength(cv::Mat(contours[i]), true)*0.02, true);
+            Imgproc.approxPolyDP(contours[i]), approx, );
+        } */
+
+        //Imgproc.cvtColor(mBlurred, mOutFrame, Imgproc.COLOR_GRAY2BGRA);
+        // return  mOutFrame
+
+        return mBlurred;
     }
 }
