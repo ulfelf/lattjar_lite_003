@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     }
 
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
-
+        mRgba.release();
         mRgba = inputFrame.rgba();
 
         Imgproc.Canny(inputFrame.gray(), mIntermediateMat, 80, 100);
