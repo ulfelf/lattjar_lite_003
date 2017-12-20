@@ -19,13 +19,11 @@ import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-
 import static java.lang.Math.min;
 import static java.lang.Math.sqrt;
 
@@ -40,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     private Size size = new Size(3,3);
     private List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
     private ArrayList arr = new ArrayList();
+    private Mat mHierarchy;
 
     private CameraBridgeViewBase mOpenCvCameraView;
 
@@ -90,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
 
+        //Skalar om bilden
+        mOpenCvCameraView.setMaxFrameSize(970, 540);
         clearStatusbar();
     }
 
@@ -126,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         mOutFrame   = new Mat(height, width, CvType.CV_8UC4);
         mGray       = new Mat(height, width, CvType.CV_8UC4);
         mBlurred = new Mat(height, width, CvType.CV_8UC4);
+        mHierarchy = new Mat();
     }
 
     public void onCameraViewStopped() {
@@ -134,27 +136,18 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
 
         mInFrame = inputFrame.rgba();
-
-        // Convert to grayscale
         Imgproc.cvtColor(mInFrame, mGray, Imgproc.COLOR_RGBA2GRAY);
 
-        // Use Canny instead of threshold to catch squares with gradient shading
-        Imgproc.blur(mGray, mBlurred, size);
         Imgproc.Canny(mGray, mBlurred, 60, 80);
 
-        Imgproc.findContours(mBlurred, contours, new Mat() ,Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
-        //Imgproc.drawContours(mBlurred, contours, 1,new Scalar(0,0,255));
+        Imgproc.findContours(mBlurred, contours, mHierarchy ,Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
 
-        /*for (int i = 0; i < contours.size(); i++) {
-            // Approximate contour with accuracy proportional
-            // to the contour perimeter
-            cv::approxPolyDP(cv::Mat(contours[i]), approx, cv::arcLength(cv::Mat(contours[i]), true)*0.02, true);
-            Imgproc.approxPolyDP(contours[i]), approx, );
-        } */
+        //Imgproc.drawContours(mOutFrame, contours, 1,new Scalar(120,56,255));
+//        Imgproc.cvtColor(mBlurred, mOutFrame, Imgproc.COLOR_GRAY2BGRA);
 
-        //Imgproc.cvtColor(mBlurred, mOutFrame, Imgproc.COLOR_GRAY2BGRA);
-        // return  mOutFrame
+        // negativt värde, rita alla vektorer, random färger. Samma färg.
+        Imgproc.drawContours( mOutFrame, contours, -1, new Scalar( Math.random() * 255 + 1, Math.random() * 255 + 1,Math.random() * 255 + 1));;
 
-        return mBlurred;
+        return mOutFrame;
     }
 }
