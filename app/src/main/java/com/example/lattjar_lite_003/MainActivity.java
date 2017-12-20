@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         //Imgproc.drawContours(mOutFrame, contours, 1,new Scalar(120,56,255));
 //        Imgproc.cvtColor(mBlurred, mOutFrame, Imgproc.COLOR_GRAY2BGRA);
 
-        // negativt värde, rita alla vektorer, random färger. Samma färg.
+        // negativt värde, rita alla vektorer, random färger. Samma färg...
         Imgproc.drawContours( mOutFrame, contours, -1, new Scalar( Math.random() * 255 + 1, Math.random() * 255 + 1,Math.random() * 255 + 1));;
 
         return mOutFrame;
