@@ -15,6 +15,7 @@ import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -22,6 +23,7 @@ import org.opencv.core.Scalar;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.opencv.core.CvType.CV_8UC;
@@ -51,7 +53,7 @@ public class CameraGuy extends AppCompatActivity implements CameraBridgeViewBase
     public void onResume()
     {
         super.onResume();
-        OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_6, this, mLoaderCallback);
+        OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION, this, mLoaderCallback);
     }
 
     private CameraBridgeViewBase mOpenCvCameraView;
@@ -98,7 +100,6 @@ public class CameraGuy extends AppCompatActivity implements CameraBridgeViewBase
         //Imgproc proc = new Imgproc();
 
         Mat rgb1 = inputFrame.rgba();
-        //Mat rgb2 = inputFrame.rgba();
         Mat rgb2 = rgb1.clone();
 
         Mat gray1 = inputFrame.gray();
@@ -108,15 +109,13 @@ public class CameraGuy extends AppCompatActivity implements CameraBridgeViewBase
         //Funkar:
         //Imgproc.threshold(gray1, gray2, 100, 255, Imgproc.THRESH_BINARY);
 
-        Mat kek = Imgcodecs.imread(ResourcesCompat.getDrawable(getResources(), R.drawable.img, null).toString());
-
         //Core.transpose(kek, bur);
 
         //Core.flip(rgb2, rgb1, -1);
         //Funkar inte:
         //Core.completeSymm(rgb2, false);
 
-        return rgb1;
+        return gray1;
     }
 
 }
