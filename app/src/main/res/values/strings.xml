@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">lattjar_lite_003</string>
+    <string name="instruction">Hover phone over colors to play</string>
+    <string name="title_activity_balloon">balloonActivity</string>
 </resources>

@@ -31,7 +31,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CameraGuy"></activity>
+        <activity android:name=".CameraGuy" />
+        <activity
+            android:name=".balloonActivity"
+            android:label="@string/title_activity_balloon"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

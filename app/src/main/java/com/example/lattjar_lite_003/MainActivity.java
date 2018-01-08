@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
@@ -46,4 +47,7 @@ public class MainActivity extends AppCompatActivity {
         imageList.add(R.drawable.image3);
         imageList.add(R.drawable.image4);
     }
+
+
+
 }
