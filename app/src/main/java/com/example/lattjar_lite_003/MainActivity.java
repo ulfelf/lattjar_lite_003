@@ -23,7 +23,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    List<Integer> imageList = new ArrayList();
+    List<Integer> shapeList = new ArrayList();
+    List<Integer> instrumentList = new ArrayList();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,21 +32,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.menu_with_carousels);
 
         populateShapes();
+        populateInstruments();
 
-        VerticalInfiniteCycleViewPager pager = (VerticalInfiniteCycleViewPager) findViewById(R.id.shape);
-        CycleAdapter cycleAdapter = new CycleAdapter(imageList, getBaseContext());
-        pager.setAdapter(cycleAdapter);
+        VerticalInfiniteCycleViewPager firstPager = (VerticalInfiniteCycleViewPager) findViewById(R.id.first_cycler);
+        CycleAdapter firstCycleAdapter = new CycleAdapter(shapeList, getBaseContext());
+        firstPager.setAdapter(firstCycleAdapter);
+
+        VerticalInfiniteCycleViewPager secondPager = (VerticalInfiniteCycleViewPager) findViewById(R.id.second_cycler);
+        CycleAdapter secondCycleAdapter = new CycleAdapter(instrumentList, getBaseContext());
+        secondPager.setAdapter(secondCycleAdapter);
 
 /*
         Intent i = new Intent(this, CameraGuy.class);
         startActivity(i);*/
     }
 
+    private void populateInstruments() {
+        instrumentList.add(R.drawable.trumpet);
+        instrumentList.add(R.drawable.drum);
+        instrumentList.add(R.drawable.piano);
+    }
+
     private void populateShapes() {
-        imageList.add(R.drawable.image1);
-        imageList.add(R.drawable.image2);
-        imageList.add(R.drawable.image3);
-        imageList.add(R.drawable.image4);
+        shapeList.add(R.drawable.circle_blue);
+        shapeList.add(R.drawable.circle_green);
+        shapeList.add(R.drawable.circle_red);
     }
 
 
