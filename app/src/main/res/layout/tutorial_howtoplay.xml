@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#d2e3ff"
+    >
 
     <android.support.constraint.Guideline
         android:id="@+id/video_guide_left"
@@ -90,10 +92,10 @@
         app:layout_constraintEnd_toStartOf="@+id/video_guide_right"
         app:layout_constraintStart_toStartOf="@+id/video_guide_left"
         app:layout_constraintTop_toTopOf="@+id/video_guide_bottom"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:background="@drawable/helpbutton2" />
 
-    <ImageButton
-        android:id="@+id/ib_exit"
+    <ImageView
+        android:id="@+id/img_background_circles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -101,10 +103,27 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.83"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.879"
+        app:srcCompat="@drawable/background_circles" />
+
+    <ImageButton
+        android:id="@+id/ib_play"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/play2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/text_guide_right"
         app:layout_constraintStart_toStartOf="@+id/text_guide_left"
-        app:layout_constraintTop_toTopOf="@+id/video_guide_bottom"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+        app:layout_constraintTop_toTopOf="@+id/video_guide_bottom" /><![CDATA[
 
     />
+]]>
 </android.support.constraint.ConstraintLayout>

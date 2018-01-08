@@ -1,13 +1,17 @@
 package com.example.lattjar_lite_003;
 
 import android.content.Intent;
+import android.graphics.PixelFormat;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.VideoView;
 
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
 import com.gigamole.infinitecycleviewpager.VerticalInfiniteCycleViewPager;
@@ -29,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu_with_carousels);
+        setContentView(R.layout.activity_instruments);
 
         populateShapes();
         populateInstruments();
@@ -42,23 +46,31 @@ public class MainActivity extends AppCompatActivity {
         CycleAdapter secondCycleAdapter = new CycleAdapter(instrumentList, getBaseContext());
         secondPager.setAdapter(secondCycleAdapter);
 
-/*
-        Intent i = new Intent(this, CameraGuy.class);
-        startActivity(i);*/
     }
-
     private void populateInstruments() {
         instrumentList.add(R.drawable.trumpet);
         instrumentList.add(R.drawable.drum);
         instrumentList.add(R.drawable.piano);
+        instrumentList.add(R.drawable.cat);
     }
 
     private void populateShapes() {
         shapeList.add(R.drawable.circle_blue);
         shapeList.add(R.drawable.circle_green);
         shapeList.add(R.drawable.circle_red);
+        shapeList.add(R.drawable.circle_black);
     }
 
 
+
+
+    //TODO copy-paste från stackoverflow för att spela video, har bekräftat att det fungerar
+    /*getWindow().setFormat(PixelFormat.TRANSLUCENT);
+    VideoView videoView = new VideoView(this);
+        videoView.setMediaController(new MediaController(this));
+        videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() +"/" + R.raw.anim));  //Don't put extension
+        videoView.requestFocus();
+        setContentView(videoView);
+        videoView.start();*/
 
 }
