@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />/>
+        app:layout_constraintGuide_percent="0.05" />
 
     <android.support.constraint.Guideline
         android:id="@+id/video_guide_bottom"
@@ -211,14 +211,6 @@
         android:layout_height="128dp"
         app:srcCompat="@drawable/icon_phone"
         tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="62dp" /><![CDATA[
+        tools:layout_editor_absoluteY="62dp" />
 
-
-
-
-
-    />
-
-
-]]>
 </android.support.constraint.ConstraintLayout>
