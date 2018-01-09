@@ -6,5 +6,6 @@
     <string name="tutorial_instrument_3">Click here \n to accept your new sound!</string>
     <string name="tutorial_instrument_4">Click here \n to save your work!</string>
     <string name="tutorial_instrument_5">Click here \n to start playing!</string>
+    <string name="achtung">Icons made by http://www.freepik.com</string>
     <string name="title_activity_balloon">balloonActivity</string>
 </resources>
