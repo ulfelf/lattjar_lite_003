@@ -57,6 +57,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/instruction"
+        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/video_guide_bottom"
         app:layout_constraintEnd_toStartOf="@+id/text_guide_right"
         app:layout_constraintHeight_default="wrap"
@@ -173,7 +174,7 @@
         app:srcCompat="@drawable/circle_red" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/img_greendot2"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
@@ -189,7 +190,7 @@
         app:srcCompat="@drawable/circle_green" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/img_blackdot2"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
@@ -202,7 +203,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.313"
-        app:srcCompat="@drawable/circle_black" /><![CDATA[
+        app:srcCompat="@drawable/circle_black" />
+
+    <ImageView
+        android:id="@+id/img_phone"
+        android:layout_width="92dp"
+        android:layout_height="128dp"
+        app:srcCompat="@drawable/icon_phone"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="62dp" /><![CDATA[
 
 
 
